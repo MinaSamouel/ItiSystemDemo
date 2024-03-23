@@ -1,0 +1,80 @@
+﻿@model MVCWithEntity.ViewModel.DepartmentWithCourses
+@{
+    ViewBag.Title = "ManageCourses";
+}
+
+
+<div class="container">
+    <h1 class="text-center text-primary"> Course teached In Department</h1>
+
+    <table class="table">
+        <thead class="table-info">
+        <tr>
+            <th> CourseName</th>
+            <th> Operation</th>
+        </tr>
+        </thead>
+        <tbody class="table-warning">
+        @if (@Model.CoursesInsideDepartment.Count() == 0)
+        {
+            <tr>
+                <td colspan="2" class="bg-danger text-center">No Courses teached InsdepartmentIde department</td>
+            </tr>   
+        }
+        else
+        {
+            @foreach (var item in Model.CoursesInsideDepartment)
+            {
+                <tr>
+                    <td> @item.Name</td>
+                    <td>
+                        <a class="btn btn-danger" asp-action="RemoveCourseFromDepartment" asp-controller="Department"asp-route-courseId="@item.Id"asp-route-departmentId="@Model.Department.Id">Delete From Department</a>
+                        
+                        <a class="btn btn-warning ms-5" asp-action="ManageStudentsGrade" asp-controller="Department" asp-route-departmentId="@Model.Department.Id"
+                           asp-route-courseId="@item.Id"> StudentsGrade </a>
+
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    
+    </table>
+    
+    <h1 class="text-center text-primary"> CoursesNotTeached</h1>
+
+    <table class="table">
+        <thead class="table-info">
+        <tr>
+            <th> CourseName</th>
+            <th> Operation</th>
+        </tr>
+        </thead>
+        <tbody class="table-warning">
+        @if (@Model.CoursesNotInsideDepartment.Count() == 0)
+        {
+            <tr>
+                <td colspan="2" class="bg-danger text-center">All existing Courses Teached on the Track</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model.CoursesNotInsideDepartment)
+            {
+                <tr>
+                    <td> @item.Name</td>
+                    <td>
+                        <a class="btn btn-success" asp-action="AddCourseToDepartment" asp-controller="Department" asp-route-courseId="@item.Id" asp-route-departmentId="@Model.Department.Id">Add To Department</a>
+
+
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+
+    </table>
+    <a class="btn btn-secondary" asp-action="Index" asp-controller="Department">Got to Index</a>
+
+
+</div>

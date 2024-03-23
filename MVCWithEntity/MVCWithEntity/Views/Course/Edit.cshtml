@@ -1,0 +1,21 @@
+﻿@model Course
+@{
+    //Layout = null;
+    ViewBag.Title = "Course Edit";
+}
+
+
+<div class="container">
+    <form method="post" class="m-5">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"> CourseName</label>
+            <input asp-for="Name" class="form-control" placeholder="CourseName"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Hours" class="form-label"> CourseHour</label>
+            <input asp-for="Hours" class="form-control" placeholder="CourseHour"/>
+        </div>
+        <input type="submit" class="btn btn-warning" value=" Update Course ">
+        <a class="btn btn-dark" asp-action="Index" asp-controller="Course">Go to index</a>
+    </form>
+</div>

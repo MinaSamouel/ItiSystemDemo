@@ -1,0 +1,144 @@
+﻿@model IEnumerable<Department>
+@{
+    ViewBag.Title = "Department List";
+}
+
+
+
+<div class="container">
+    <div class="text-center">
+        <a class="btn btn-primary mt-2" asp-action="Create" asp-controller="Department">Create Department</a>
+    </div>
+
+    <table class="table table-bordered  table-hover mt-3">
+        <thead class="table-info">
+        <tr>
+            <th> Department Id</th>
+            <th> Department Name</th>
+            <th> Operations </th>
+        </tr>
+        </thead>
+        <tbody class="table-warning">
+        @if(@Model.Count() == 0){
+        <tr>
+            <td colspan="3" class="bg-danger text-center">No data to show</td>
+        </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @item.Id </td>
+                    <td> @item.Name</td>
+                    <td>
+                        <a class="btn btn-dark" asp-controller="Department" asp-action="Details" asp-route-id=@item.Id>Details</a>
+
+                        <a class="btn btn-warning" asp-action="Update" asp-controller="Department" asp-route-id="@item.Id">Update</a>
+
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="populateModal('Department number: @item.Id','Department Name:  @item.Name'), populateFooter('@item.Id')">Delete</a>
+
+                        <a class="btn btn-light btn-outline-dark" onclick="func2(@item.Id)"> DetailOnSamePage </a>
+
+                        <a class="btn btn-light btn-outline-secondary" asp-action="ManageStudent" asp-controller="Department" asp-route-id="@item.Id"> Students </a>
+                        
+                        <a class="btn btn-info " asp-action="ManageCourses" asp-controller="Department" asp-route-id="@item.Id"> Courses </a>
+                        
+                    </td>
+                </tr>
+            }
+        }
+        
+
+        </tbody>
+    </table>
+
+    <div id="div1">
+        @* <h1 class="alert alert-info">DepartmentNumber = ${departmentId} Department Name ${name}</h1> *@
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hdepartmentIdden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Department</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                .....
+            </div>
+            <div class="modal-footer" id="populatefooter">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function populateModal(departmentId, name) {
+            var modalBody = document.getElementById('modalBody');
+
+            var data = `
+                        <h4 class="fs-4">${departmentId}</h4>
+                        <h4 class="fs-4">${name}</h4>
+                        `;
+
+            modalBody.innerHTML = data;
+        }
+
+        function populateFooter(departmentId) {
+            var data = `
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="deleteDepartment(${departmentId})" data-bs-dismiss="modal">Delete Department</button>
+                        `;
+
+            var modalFooter = document.getElementById('populatefooter');
+            modalFooter.innerHTML = data;
+        }
+
+        function deleteDepartment(departmentId) {
+            // Perform the delete operation using AJAX or redirect to the delete action
+            // Example using AJAX (make sure to replace the URL with your actual delete action endpoint)
+            $.ajax({
+                url: '/Department/Delete/' + departmentId,
+                type: 'POST',
+                success: function (data) {
+                    // Handle success, e.g., close the modal or refresh the page
+                    location.reload(); // Refresh the page
+                    $('#exampleModal').modal('hdepartmentIde');
+                    location.reload(); // Refresh the page
+                },
+                error: function (error) {
+                    console.error('Error deleting department:', error);
+                    // Handle error, e.g., show an alert
+                }
+            });
+        }
+
+        function func1(departmentId, name) {
+            // data =
+            // `
+            //     <h1 class="alert alert-info">
+            //         DepartmentNumber = ${departmentId} Department Name ${name}
+            //     </h1>
+            // `;
+
+            data = `<h1 class="alert alert-info"> DepartmentNumber = ${departmentId} Department Name ${name}</h1>`;
+
+            document.getElementById('div1').innerHTML = `${departmentId} ${name} `;
+
+        }
+
+        function func2(departmentId) {
+            $("#div1").load("/department/details2/" + departmentId)
+
+
+        }
+    </script>
+}
+

@@ -1,0 +1,19 @@
+﻿@model Student
+@{
+    var deptlist = new SelectList(ViewBag.deptlist, "Id", "Name", Model.DepartmentId);
+    ViewBag.Title = "Student Details";
+}
+
+
+    <div class="container">
+        <form method="post" class="mt-5">
+            <div class="mb-3">
+                <label asp-for="Id" class="form-label"> StudentId</label>
+                <input asp-for="Id" class="form-control" placeholder="StudentId" />
+            </div>
+
+            <partial name="UpdateEdit"/>
+        </form>
+
+    </div>
+

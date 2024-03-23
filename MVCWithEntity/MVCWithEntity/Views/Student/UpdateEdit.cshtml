@@ -1,0 +1,39 @@
+﻿@model Student
+@{
+    
+    var deptlist = new SelectList(ViewBag.deptlist, "Id", "Name", Model.DepartmentId);
+}
+
+<!DOCTYPE html>
+
+
+    
+        
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"> StudentName</label>
+        <input asp-for="Name" class="form-control" placeholder="StudentName" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+        
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"> StudentEmail</label>
+        <input asp-for="Email" class="form-control" placeholder="StudentEmail" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+        
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label"> StudentAge</label>
+        <input asp-for="Age" class="form-control" placeholder="StudentAge"/>
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+        
+    <div class="mb-3">
+        <label asp-for="DepartmentId" class="form-label"> StudentDepartment</label>
+        <select asp-items="deptlist" asp-for="DepartmentId" class="form-control">
+            <option value="null">Select Department</option>
+        </select>
+    </div>
+
+    <a class="btn btn-dark" asp-action="Index" asp-controller="Student">Go to index</a>
+
+

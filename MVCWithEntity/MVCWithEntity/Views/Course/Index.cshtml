@@ -1,0 +1,159 @@
+﻿@model IEnumerable<Course>
+@{
+    //Layout = null;
+    ViewBag.Title = "Course Index";
+}
+<div class="text-center">
+    <a class="btn btn-primary mt-3" asp-action="Create" asp-controller="Course">Create Course</a>
+</div>
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>CourseId</th>
+            <th>CourseName</th>
+            <th>CourseHour</th>
+            <th>Operation</th>
+        </tr>
+    </thead>
+    <tbody class="table-warning">
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td class="bg-danger text-center" colspan="4">There isnot course stored</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.Id</td>
+                    <td>@course.Name</td>
+                    <td>@course.Hours</td>
+                    <td>
+                        <a class="btn btn-dark" asp-action="Details" asp-controller="Course" asp-route-id="@course.Id">Details</a>
+                        <a class="btn btn-warning" asp-action="Edit" asp-controller="Course" asp-route-id="@course.Id">Edit</a>
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="populateModal('Course number: @course.Id','Course Name:  @course.Name'), populateFooter('@course.Id')">Delete</a>
+                        <a class="btn btn-light btn-outline-dark" onclick="func2(@course.Id)">
+                            DetailOnSamePage
+
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
+<div id="div1" class="row ">
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hdepartmentIdden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Course</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body" id="modalBody">
+                Are you sure you want to delete this course?
+            </div>
+
+            <div class="modal-footer" id="populatefooter">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    <script>
+        function populateModal(departmentId, name) {
+            var modalBody = document.getElementById('modalBody');
+
+            var data =
+                `
+                            <h4 class="fs-4">${departmentId}</h4>
+                            <h4 class="fs-4">${name}</h4>
+                           `;
+            modalBody.innerHTML = data;
+        }
+
+        function populateFooter(courseId) {
+            var data = `
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="deleteDepartment(${courseId})" data-bs-dismiss="modal">Delete Course</button>
+
+                        `;
+
+            var modalFooter = document.getElementById('populatefooter');
+            modalFooter.innerHTML = data;
+        }
+
+        function deleteDepartment(courseId) {
+            // Perform the delete operation using AJAX or redirect to the delete action
+            // Example using AJAX (make sure to replace the URL with your actual delete action endpoint)
+            $.ajax({
+                url: '/Course/Delete/' + courseId,
+                type: 'POST',
+                success: function (data) {
+                    location.reload(); // Refresh the page
+                    // Handle success, e.g., close the modal or refresh the page
+                    $('#exampleModal').modal('hdepartmentIde');
+                    location.reload(); // Refresh the page
+                },
+                error: function (error) {
+                    console.error('Error deleting Student:', error);
+                    // Handle error, e.g., show an alert
+                }
+            });
+        }
+
+        function func1(departmentId, name) {
+            // data =
+            // `
+            //     <h1 class="alert alert-info">
+            //         DepartmentNumber = ${departmentId} Department Name ${name}
+            //     </h1>
+            // `;
+
+            data = `<h1 class="alert alert-info"> StudentNumber = ${departmentId} Student Name ${name}</h1>`;
+
+            document.getElementById('div1').innerHTML = `${departmentId} ${name} `;
+
+        }
+
+        function func2(departmentId) {
+            $("#div1").load("/course/details2/" + departmentId)
+
+
+        }
+
+    </script>
+}
+
+
+@* <!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="wdepartmentIdth=device-wdepartmentIdth" />
+    <title>@ViewBag.title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    
+
+
+
+
+
+
+</body>
+</html>
+ *@

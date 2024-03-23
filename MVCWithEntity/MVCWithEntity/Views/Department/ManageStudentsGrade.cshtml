@@ -1,0 +1,38 @@
+﻿@model Department
+@{
+    ViewBag.Title = "ManageStudentsGrade";
+    Course course = ViewBag.course;
+    List<int?> degrees = ViewBag.grades;
+
+}
+
+
+<div class="container">
+    <h1 class="text-center text-success mt-5">DeprtmentName: @Model.Name</h1>
+    <h2 class="text-center text-info">CourseName: @course.Name</h2>
+    @if (Model.Students.Count() == 0)
+    {
+        <h1 class="text-center text-danger mt-5">No Student on That Track</h1>
+
+    }
+    else
+    {
+        <form method="post" class="mt-5">
+            @* @iterationFacto=0; *@
+            
+            @foreach (var item in Model.Students)
+            {
+                <div class="mb-3">
+                    <label class="text-info me-5 form-label">@item.Name</label>
+                    <input type="text" class="me-5" name="degree.@item.Id" placeholder="Enter Degree For The Student"/>
+                </div>
+            }
+            <input type="submit" asp-action="ManageStudentsGrade" asp-controller="Department" asp-route-courseId="@course.Id" asp-route-departmentId="@Model.Id" class="btn btn-warning" value="Add degree"/>
+        </form>
+
+        <div class="text-center">
+            <a class="btn btn-secondary mt-3" asp-action="Index" asp-controller="Department">Got to Index</a>
+        </div>
+    }
+
+</div>

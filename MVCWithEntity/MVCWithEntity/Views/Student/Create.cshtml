@@ -1,0 +1,51 @@
+﻿@model Student
+@{
+    var deptlist = new SelectList(ViewBag.deptlist, "Id", "Name");
+    ViewBag.Title = "Add Student";
+}
+
+
+    <div class="container">
+        <form method="post" class="m-5" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"> StudentName</label>
+                <input asp-for="Name" class="form-control" placeholder="StudentName"/>
+                <span asp-validation-for="Name"  class="text-danger"></span>
+            </div>
+            
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"> StudentEmail</label>
+                <input asp-for="Email" class="form-control" placeholder="StudentEmail" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+            </div>
+            
+            <div class="mb-3">
+                <label asp-for="Age" class="form-label"> StudentAge</label>
+                <input asp-for="Age" class="form-control" placeholder="StudentAge"/>
+                <span asp-validation-for="Age" class="text-danger"></span>
+
+            </div>
+            
+            <div class="mb-3">
+                <label asp-for="DepartmentId" class="form-label"> StudentDepartment</label>
+                <select asp-items="deptlist" asp-for="DepartmentId" class="form-control">
+                    <option >Select Department</option>
+                </select>
+            </div>
+            
+            <div class="text-center text-danger" asp-validation-summary="ModelOnly"></div>
+            @* <div class="mb-3">
+                <label for="image" class="form-label">Student Image</label>
+                <input type="file" name="studentImage" class="form-control" departmentId="image">
+            </div> *@
+            <input type="submit" class="btn btn-primary" value="add"/>
+            <a class="btn btn-dark" asp-action="Index" asp-controller="Student">Go to index</a>
+
+        </form>
+
+    </div>
+    
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

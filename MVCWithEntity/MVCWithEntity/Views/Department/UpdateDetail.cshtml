@@ -1,0 +1,30 @@
+﻿@model Department
+@{
+    ViewBag.Title = "UpdateDetail";
+}
+
+
+    <div class="container">
+        <form method="post" class="mt-5">
+            <div class="mb-3">
+                <label asp-for="Id" class="form-label">Department Id</label>
+                <input asp-for="Id" class="form-control" placeholder="Department Id">
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Department Name</label>
+                <input class="form-control" placeholder="Department Name" asp-for="Name" >
+            </div>
+                    
+            @* <input type="submit" class="btn btn-primary" value="Update"> *@
+            
+            @* <a class="btn btn-primary" asp-action="Update" asp-controller="Department">UpdateDepartment</a> *@
+
+            @* <button class="btn btn-primary" asp-route-department="@Model" asp-action="Update" asp-controller="Department">UdateDepartment</button> *@
+
+            <a class="btn btn-secondary" asp-action="Index" asp-controller="Department">Got to Index</a>
+
+        </form>
+    </div>
+
+

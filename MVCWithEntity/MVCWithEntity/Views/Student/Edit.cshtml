@@ -1,0 +1,19 @@
+﻿@model Student
+@{
+    var deptlist = new SelectList(ViewBag.deptlist, "Id", "Name", Model.DepartmentId);
+    ViewBag.Title = "Edit Student";
+}
+
+
+    <div class="container">
+        <form method="post" class="m-5">
+
+            <partial name="UpdateEdit"/>
+            <div class="text-center text-danger" asp-validation-summary="ModelOnly"></div>
+            <input class="btn btn-warning" type="submit" value=" Update Student ">
+            
+
+        </form>
+
+    </div>
+

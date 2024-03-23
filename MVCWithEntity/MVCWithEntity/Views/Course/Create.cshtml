@@ -1,0 +1,32 @@
+﻿@model Course
+@{
+    ViewBag.Title = "Course Create";
+}
+
+<div class="container">
+    <form method="post" class="m-5" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"> CourseName</label>
+            <input asp-for="Name" class="form-control" placeholder="CourseName"/>
+            <span asp-validation-for="Name"  class="text-danger"></span>
+        </div>
+                
+        <div class="mb-3">
+            <label asp-for="Hours" class="form-label"> CourseHour</label>
+            <input asp-for="Hours" class="form-control" placeholder="CourseHour"/>
+            <span asp-validation-for="Hours" class="text-danger"></span>
+        </div>
+
+        <div class="text-cemter text-danger" asp-validation-summary="ModelOnly">
+
+        </div>
+        <input type="submit" class="btn btn-primary" value="add" />
+        <a class="btn btn-dark" asp-action="Index" asp-controller="Course">Go to index</a>
+    </form>
+                
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    @* @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
+}
